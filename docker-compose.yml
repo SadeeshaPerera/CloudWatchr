@@ -48,5 +48,22 @@ services:
     depends_on:
       - prometheus
 
+  loki:
+    image: grafana/loki:2.9.2
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/config.yml:/etc/loki/config.yml
+
+  promtail:
+    image: grafana/promtail:2.9.2
+    volumes:
+      - ./promtail/config.yml:/etc/promtail/config.yml
+      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - /etc/machine-id:/etc/machine-id:ro
+
+
+
 volumes:
   grafana-storage:
