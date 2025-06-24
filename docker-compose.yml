@@ -63,6 +63,16 @@ services:
       - /var/lib/docker/containers:/var/lib/docker/containers
       - /etc/machine-id:/etc/machine-id:ro
 
+  blackbox:
+    image: prom/blackbox-exporter
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml
+    command:
+      - '--config.file=/etc/blackbox_exporter/config.yml'
+
+
 
 
 volumes:
